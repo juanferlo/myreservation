@@ -56,4 +56,13 @@ public class ClientService {
 	public List<Client> findAll(){
 		return this.clientRepository.findAll();
 	}
+	
+	/**
+	 * Method to get a client from an identification
+	 * @param identification
+	 * @return
+	 */
+	public Client findByIdentification(String identification) {
+		return this.clientRepository.findByIdentification(identification);
+	}
 }

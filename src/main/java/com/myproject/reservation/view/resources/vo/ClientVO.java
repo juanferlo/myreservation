@@ -5,6 +5,8 @@ package com.myproject.reservation.view.resources.vo;
 
 import java.io.Serializable;
 
+import com.myproject.reservation.model.Client;
+
 import lombok.Data;
 
 /**

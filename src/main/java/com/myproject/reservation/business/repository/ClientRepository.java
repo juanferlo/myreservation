@@ -13,7 +13,7 @@ public interface ClientRepository extends JpaRepository<Client, String>{
 	 * @param identificacionCli
 	 * @return
 	 */
-	public Client findClientByIdentification(String identification);
+	public Client findByIdentification(String identification);
 	
 	/**
 	 * Method to find a client by email 

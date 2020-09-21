@@ -56,5 +56,15 @@ public class BookingService {
 	public List<Booking> findAll(){
 		return bookingRepository.findAll();
 	}
+	
+	/**
+	 * Method to get a reservation from a code
+	 * @param code
+	 * @return
+	 */
+	public Booking findByCode(String code) {
+		return bookingRepository.findByCode(code);
+	}
+	
 
 }

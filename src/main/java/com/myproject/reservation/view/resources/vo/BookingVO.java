@@ -22,5 +22,6 @@ public class BookingVO implements Serializable{
 	private Date checkOut;
 	private String description;
 	private String amount;
+	private ClientVO client;
 	
 }

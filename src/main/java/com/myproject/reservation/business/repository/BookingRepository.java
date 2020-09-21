@@ -33,6 +33,6 @@ public interface BookingRepository extends JpaRepository<Booking, String>{
 	 * @param codigoReserva
 	 * @return
 	 */
-	public Booking findBookingByCode(String code);
+	public Booking findByCode(String code);
 	
 }
