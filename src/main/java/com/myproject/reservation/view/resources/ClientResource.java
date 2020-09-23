@@ -18,13 +18,22 @@ import com.myproject.reservation.business.service.ClientService;
 import com.myproject.reservation.model.Client;
 import com.myproject.reservation.view.resources.vo.ClientVO;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
+
 @RestController
 @RequestMapping("/api/client")
+@Api(tags = "client")
 public class ClientResource {
 	
 	@Autowired ClientService clientService;
 	
 	@PostMapping
+	@ApiOperation(value = "Crear Cliente", notes = "Servicio para crear un nuevo cliente")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Cliente creado correctamente"),
+			@ApiResponse(code = 400, message = "Solicitud Inválida") })
 	public ResponseEntity<Client> createClient(@RequestBody ClientVO clientVO){
 		Client client = new Client();
 		client.setAddress(clientVO.getAddress());
@@ -37,11 +46,17 @@ public class ClientResource {
 	}
 	
 	@GetMapping
+	@ApiOperation(value = "Listar Clientes", notes = "Servicio para listar todos los clientes")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Clientes encontrados"),
+			@ApiResponse(code = 404, message = "Clientes no encontrados") })
 	public ResponseEntity<List<Client>> findAll(){
 		return ResponseEntity.ok(this.clientService.findAll());
 	}
 	
 	@PutMapping("/{identification}")
+	@ApiOperation(value = "Actualizar Cliente", notes = "Servicio para actualizar un cliente")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Cliente actualizado correctamente"),
+			@ApiResponse(code = 404, message = "Cliente no encontrado") })
 	public ResponseEntity<Client> updateClient(@PathVariable("identification") String identification, ClientVO clientVo){
 		Client client = this.clientService.findByIdentification(identification);
 		if (client == null) {
@@ -57,6 +72,9 @@ public class ClientResource {
 	}
 	
 	@DeleteMapping("/{identification}")
+	@ApiOperation(value = "Eliminar Cliente", notes = "Servicio para eliminar un cliente")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Cliente eliminado correctamente"),
+			@ApiResponse(code = 404, message = "Cliente no encontrado") })
 	public void removeClient(@PathVariable("identification") String identification){
 		Client client = this.clientService.findByIdentification(identification);
 		if (client != null) {

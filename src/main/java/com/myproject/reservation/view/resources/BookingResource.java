@@ -20,14 +20,23 @@ import com.myproject.reservation.model.Booking;
 import com.myproject.reservation.model.Client;
 import com.myproject.reservation.view.resources.vo.BookingVO;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
+
 @RestController
 @RequestMapping("/api/booking")
+@Api(tags = "booking")
 public class BookingResource {
 
 	@Autowired BookingService bookingService;
 	@Autowired ClientService clientService;
 	
 	@PostMapping
+	@ApiOperation(value = "Crear Reserva", notes = "Servicio para crear un nueva reserva")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Reserva creada correctamente"),
+			@ApiResponse(code = 400, message = "Solicitud Inválida") })
 	public ResponseEntity<Booking> createBooking(@RequestBody BookingVO bookingVO){
 		Booking booking = new Booking();
 		booking.setAmount(bookingVO.getAmount());
@@ -39,11 +48,17 @@ public class BookingResource {
 	}
 	
 	@GetMapping
+	@ApiOperation(value = "Listar Reservas", notes = "Servicio para listar todas las reservas")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Reservas encontrados"),
+			@ApiResponse(code = 404, message = "Reservas no encontrados") })
 	public ResponseEntity<List<Booking>> findAll(){
 		return ResponseEntity.ok(bookingService.findAll());
 	}
 	
 	@PutMapping("/{code}")
+	@ApiOperation(value = "Actualizar Reserva", notes = "Servicio para actualizar una reserva")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Reserva actualizada correctamente"),
+			@ApiResponse(code = 404, message = "Reserva no encontrada") })
 	public ResponseEntity<Booking> updateBooking(@PathVariable("code") String code, BookingVO bookingVo){
 		Booking booking = bookingService.findByCode(code);
 		if (booking == null) {
@@ -60,6 +75,9 @@ public class BookingResource {
 	}
 	
 	@DeleteMapping("/{code}")
+	@ApiOperation(value = "Eliminar Reserva", notes = "Servicio para eliminar una reserva")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Reserva eliminada correctamente"),
+			@ApiResponse(code = 404, message = "Reserva no encontrada") })
 	public void removeBooking(@PathVariable("code") String code){
 		Booking booking = bookingService.findByCode(code);
 		if (booking != null) {
