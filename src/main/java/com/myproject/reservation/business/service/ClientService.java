@@ -65,4 +65,13 @@ public class ClientService {
 	public Client findByIdentification(String identification) {
 		return this.clientRepository.findByIdentification(identification);
 	}
+	
+	/**
+	 * Method to look for a client by email
+	 * @param email
+	 * @return
+	 */
+	public Client findByEmailAccount(String email) {
+		return this.findByEmailAccount(email);
+	}
 }

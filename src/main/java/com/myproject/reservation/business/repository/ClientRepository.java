@@ -1,6 +1,8 @@
 package com.myproject.reservation.business.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.myproject.reservation.model.Client;
@@ -20,7 +22,7 @@ public interface ClientRepository extends JpaRepository<Client, String>{
 	 * @param email
 	 * @return
 	 */
-	//@Query("Select c from Cliente c where c.emailCli like %:email")
-	//public Client findClientByEmail(@Param("email") String email);
+	@Query("Select c from Client c where c.email like %:email")
+	public Client findClientByEmail(@Param("email") String email);
 
 }
